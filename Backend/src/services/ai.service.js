@@ -6,6 +6,7 @@ const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GENAI_API_KEY
 })
 
+
 const interviewReportSchema = z.object({
     matchScore: z.number().describe("A score between 0 and 100 indicating how well the candidate's profile matches the job describe"),
     technicalQuestions: z.array(z.object({
@@ -30,52 +31,16 @@ const interviewReportSchema = z.object({
 })
 
 async function generateInterviewReport({ resume, selfDescription, jobDescription }) {
-    const prompt = `You are an experienced technical interviewer, hiring manager, and career coach.
 
-    Analyze the candidate's resume, self-description, and the target job description.
 
-    Generate a comprehensive interview report.
-
-    Guidelines:
-
-    1. Calculate a match score between 0 and 100 based on:
-    - technical skills
-    - projects
-    - experience
-    - education
-    - alignment with the job description
-
-    2. Generate realistic technical interview questions that are specifically related to:
-    - the candidate's resume
-    - the technologies required by the job
-    - the technologies known and worked on by the candidate
-    - the candidate's projects
-
-    3. Generate behavioral interview questions that assess communication, teamwork, ownership, leadership, conflict resolution,   adaptability, and problem solving.
-
-    4. For every interview question:
-    - explain why the interviewer asks it
-    - provide an ideal interview answer
-    - keep answers practical and interview-ready
-
-    5. Identify only the missing or weak skills compared to the job description.
-
-    Severity Rules:
-    - High: Core required skills missing.
-    - Medium: Important but not mandatory skills missing.
-    - Low: Nice-to-have skills missing.
-
-    6. Create a practical 7-day preparation plan.
-    Each day should focus on one major topic and include actionable tasks.
-
-    Base every recommendation on the provided resume and job description.
-
-    Candidate Resume: ${resume}
-    Self Description: ${selfDescription}
-    Job Description: ${jobDescription}
+    const prompt = `Generate an interview report for a candidate with the following details:
+                        Resume: ${resume}
+                        Self Description: ${selfDescription}
+                        Job Description: ${jobDescription}
 `
+
     const response = await ai.models.generateContent({
-        model: "gemini-3.6-flash",
+        model: "gemini-3-flash-preview",
         contents: prompt,
         config: {
             responseMimeType: "application/json",
@@ -83,7 +48,9 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
         }
     })
 
-    return JSON.parse(response.text);
+    console.dir(response, { depth: null });
+
+
 }
 
 module.exports = {generateInterviewReport}
