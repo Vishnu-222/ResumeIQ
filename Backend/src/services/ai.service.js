@@ -236,8 +236,7 @@ ${jobDescription}
             }
         });
 
-        // return JSON.parse(response.text);
-        console.log(JSON.parse(response.text));
+        return JSON.parse(response.text)
 
     } catch (error) {
         console.error("Gemini Error:", error);
@@ -245,4 +244,4 @@ ${jobDescription}
     }
 }
 
-module.exports = {generateInterviewReport}
+module.exports = generateInterviewReport 
