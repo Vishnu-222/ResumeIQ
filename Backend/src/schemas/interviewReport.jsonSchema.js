@@ -8,6 +8,11 @@ const interviewReportJsonSchema = {
             description: "A score between 0 and 100 indicating how well the candidate's profile matches the job description."
         },
 
+        title: {
+        type: "string",
+        description: "The exact job title extracted from or inferred from the provided job description, such as 'Frontend Developer', 'Software Engineer', or 'MERN Stack Developer'."
+        },
+
         technicalQuestions: {
             type: "array",
             description: "Technical questions that can be asked in the interview along with their intention and how to answer them. The no. of questions must be 7 to 10.",
@@ -124,6 +129,7 @@ const interviewReportJsonSchema = {
 
     required: [
         "matchScore",
+        "title",
         "technicalQuestions",
         "behavioralQuestions",
         "skillGaps",
