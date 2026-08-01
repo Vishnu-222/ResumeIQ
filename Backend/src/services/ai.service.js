@@ -1,5 +1,7 @@
 const { GoogleGenAI } = require("@google/genai")
 const {interviewReportJsonSchema} = require("../schemas/interviewReport.jsonSchema")
+const {resumePdfJsonSchema} = require("../schemas/resumePdf.jsonSchema")
+const puppeteer = require("puppeteer")
 
 const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GENAI_API_KEY
@@ -244,4 +246,189 @@ ${jobDescription}
     }
 }
 
-module.exports = generateInterviewReport 
+async function generatePdfFromHtml(htmlContent) {
+    const browser = await puppeteer.launch()
+    const page = await browser.newPage();
+    await page.setContent(htmlContent, { waitUntil: "networkidle0" })
+
+    const pdfBuffer = await page.pdf({
+        format: "A4", margin: {
+            top: "20mm",
+            bottom: "20mm",
+            left: "15mm",
+            right: "15mm"
+        }
+    })
+
+    await browser.close()
+
+    return pdfBuffer
+}
+
+async function generateResumePdf({ resume, selfDescription, jobDescription }) {
+
+   try {
+
+    const prompt = `
+You are an expert Resume Writer, Senior Technical Recruiter, ATS Specialist, and Hiring Manager.
+
+Your task is to rewrite and optimize the candidate's resume specifically for the given Job Description.
+
+=========================
+OBJECTIVE
+=========================
+
+Create a professional, ATS-friendly resume that maximizes the candidate's chances of getting shortlisted.
+
+Improve wording, formatting, readability, and presentation while remaining completely truthful.
+
+Do NOT invent any:
+
+- work experience
+- projects
+- companies
+- technologies
+- certifications
+- achievements
+- education
+- skills
+
+Only use the information available in the Resume and Self Description.
+
+=========================
+TAILORING
+=========================
+
+Carefully compare the Resume with the Job Description.
+
+Highlight:
+
+- relevant skills
+- relevant experience
+- matching projects
+- keywords from the job description
+- measurable achievements whenever possible
+
+If something is not mentioned by the candidate, do NOT add it.
+
+=========================
+RESUME STRUCTURE
+=========================
+
+Generate a complete professional resume containing appropriate sections such as:
+
+- Header
+- Summary
+- Skills
+- Experience
+- Projects
+- Education
+- Certifications (only if provided)
+- Achievements (only if provided)
+
+Only include sections that have information.
+
+=========================
+DESIGN
+=========================
+
+Return a COMPLETE HTML document.
+
+Requirements:
+
+- HTML5
+- Inline CSS only
+- No JavaScript
+- No external CSS
+- No CDN
+- No Tailwind
+- No Bootstrap
+
+The resume should look modern, clean and professional.
+
+Use:
+
+- proper spacing
+- readable typography
+- subtle colors
+- section headings
+- bullet points
+- balanced white space
+
+The resume should print properly on A4 paper.
+
+=========================
+ATS REQUIREMENTS
+=========================
+
+The resume must:
+
+- be ATS friendly
+- use simple structure
+- avoid unnecessary graphics
+- avoid icons
+- avoid tables for important information
+- preserve keyword readability
+
+=========================
+IMPORTANT
+=========================
+
+The HTML should be complete.
+
+Include:
+
+<!DOCTYPE html>
+<html>
+<head>
+...
+</head>
+<body>
+...
+</body>
+</html>
+
+The generated HTML should be directly usable with Puppeteer to generate a PDF.
+
+=========================
+CANDIDATE INFORMATION
+=========================
+
+Resume:
+${resume}
+
+=========================
+
+Self Description:
+${selfDescription}
+
+=========================
+
+Job Description:
+${jobDescription}
+`;
+
+    const response = await ai.models.generateContent({
+        model: "gemini-3-flash-preview",
+
+        contents: prompt,
+
+        config: {
+            responseMimeType: "application/json",
+            responseJsonSchema: resumePdfJsonSchema
+        }
+    });
+
+    const jsonContent = JSON.parse(response.text);
+
+    const pdfBuffer = await generatePdfFromHtml(jsonContent.html);
+
+    return pdfBuffer;
+}
+catch (error) {
+        console.error("Gemini Error:", error);
+        throw error;
+    }
+}
+
+module.exports = { generateInterviewReport, generateResumePdf }
