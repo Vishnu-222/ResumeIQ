@@ -1,0 +1,111 @@
+$bg-page: #0d1117;
+$bg-card: #161b22;
+$border: #2a3348;
+
+$text: #e6edf3;
+$text-muted: #7d8590;
+
+$accent: #ff2d78;
+$accent-alt: #ff6b9d;
+
+.interview-loader-container {
+
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: $bg-page;
+}
+
+.loader-card {
+
+    width: 520px;
+    max-width: 90%;
+
+    padding: 3rem;
+
+    border-radius: 18px;
+
+    background: $bg-card;
+
+    border: 1px solid $border;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+}
+
+.spinner {
+
+    width: 72px;
+    height: 72px;
+
+    border-radius: 50%;
+
+    border: 5px solid rgba(255,255,255,.08);
+
+    border-top: 5px solid $accent;
+
+    border-right: 5px solid $accent-alt;
+
+    animation: spin .8s linear infinite;
+
+    margin-bottom: 2rem;
+
+    box-shadow:
+        0 0 15px rgba(255,45,120,.35),
+        0 0 35px rgba(255,45,120,.15);
+}
+
+.loader-card h1{
+
+    font-size:2rem;
+    margin-bottom:.4rem;
+}
+
+.loader-card h2{
+
+    font-size:1.2rem;
+    font-weight:500;
+
+    color:$text-muted;
+
+    margin-bottom:2rem;
+}
+
+.current-step{
+
+    color:$accent;
+
+    font-size:1.1rem;
+
+    font-weight:600;
+
+    min-height:28px;
+
+    transition:.3s;
+}
+
+.waiting-text{
+
+    margin-top:2rem;
+
+    color:$text-muted;
+
+    font-size:.95rem;
+}
+
+@keyframes spin{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
