@@ -3,6 +3,7 @@ import { useNavigate,Link } from 'react-router'
 import "../auth.form.scss"
 import { useAuth } from '../hooks/useAuth'
 import Loader from "../../../components/Loader/loader"
+import { toast } from "react-toastify";
 
 
 const Login = () => {
@@ -15,8 +16,10 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await handleLogin({email,password})
-        navigate('/')
+        const success = await handleLogin({email,password})
+        if(success){
+            navigate('/')
+        }
     }
 
     if(loading){

@@ -61,14 +61,23 @@ const Interview = () => {
     const [ activeNav, setActiveNav ] = useState('technical')
     const { report, getReportById, loading ,downloadingResume, getResumePdf  } = useInterview()
     const { interviewId } = useParams()
+    const navigate = useNavigate();
 
     useEffect(() => {
-        if (interviewId) {
-            getReportById(interviewId)
-        }
-    }, [ interviewId ])
 
- 
+    const fetchReport = async () => {
+
+        const data = await getReportById(interviewId);
+
+        if (!data) {
+            navigate("/");
+        }
+
+    };
+
+    fetchReport();
+
+}, [interviewId]);
 
     if (loading || !report) {
         return <InterviewLoader />;

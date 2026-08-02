@@ -1,12 +1,12 @@
 import { generateInterviewReport, getInterviewReportById , getAllInterviewReports , generateResumePdf } from "../services/interview.api"
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { InterviewContext } from "../interview.context"
-import { useParams } from "react-router"
+import { toast } from "react-toastify";
 
 export const useInterview = () => {
 
     const context = useContext(InterviewContext)
-    const { interviewId } = useParams()
+    
 
     if (!context) {
         throw new Error("useInterview must be used within an InterviewProvider")
@@ -20,13 +20,15 @@ export const useInterview = () => {
         try {
             response = await generateInterviewReport({ jobDescription, selfDescription, resumeFile })
             setReport(response.interviewReport)
-        } catch (error) {
-            console.log(error)
+            toast.success(response.message);
+            return response.interviewReport
+        } catch (err) {
+            toast.error(err.response?.data?.message || "Something went wrong.");
+            return null;
         } finally {
             setLoading(false)
         }
 
-        return response.interviewReport
     }
 
     const getReportById = async (interviewId) => {
@@ -35,12 +37,15 @@ export const useInterview = () => {
         try {
             response = await getInterviewReportById(interviewId)
             setReport(response.interviewReport)
-        } catch (error) {
-            console.log(error)
+            return response.interviewReport
+        } catch (err) {
+            toast.error(err.response?.data?.message || "Something went wrong.");
+            setReport(null)
+            return null;
         } finally {
             setLoading(false)
         }
-        return response.interviewReport
+
     }
 
     const getReports = async () => {
@@ -49,13 +54,14 @@ export const useInterview = () => {
         try {
             response = await getAllInterviewReports()
             setReports(response.interviewReports)
-        } catch (error) {
-            console.log(error)
+            return response.interviewReports
+        } catch (err) {
+            toast.error(err.response?.data?.message || "Something went wrong.");
+            return [];
         } finally {
             setLoading(false)
         }
 
-        return response.interviewReports
     }
 
     const getResumePdf = async (interviewReportId) => {
@@ -69,21 +75,16 @@ export const useInterview = () => {
             link.setAttribute("download", `resume_${interviewReportId}.pdf`)
             document.body.appendChild(link)
             link.click()
+            toast.success("Resume downloaded successfully.");
+            return true;
         }
-        catch (error) {
-            console.log(error)
+        catch (err) {
+            toast.error(err.response?.data?.message || "Failed to download resume.");
+            return false;
         } finally {
             setDownloadingResume(false)
         }
     }
-
-    useEffect(() => {
-        if (interviewId) {
-            getReportById(interviewId)
-        } else {
-            getReports()
-        }
-    }, [ interviewId ])
 
     return { loading, downloadingResume, report, reports, generateReport, getReportById, getReports , getResumePdf }
 

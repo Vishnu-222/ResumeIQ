@@ -1,6 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const errorHandler = require("./Middlewares/error.middleware");
 
 
 const app = express();
@@ -19,5 +20,7 @@ const interviewRouter = require("./routes/interview.routes")
 
 app.use("/api/auth", authRouter);
 app.use("/api/interview", interviewRouter);
+
+app.use(errorHandler);
 
 module.exports = app;
