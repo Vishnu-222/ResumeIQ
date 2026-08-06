@@ -1,6 +1,7 @@
 const express = require("express");
 const authController = require("../controllers/auth.controller");
 const authMiddleware = require("../Middlewares/auth.middleware");
+const { validateRegister, validateLogin } = require("../validators/auth.validator");
 
 const authRouter = express.Router();
 
@@ -10,14 +11,14 @@ const authRouter = express.Router();
  * @description Register a new user
  * @access Public
  */
-authRouter.post("/register" , authController.registerUserController);
+authRouter.post("/register" , validateRegister, authController.registerUserController);
 
 /**
  * @route POST /api/auth/login
  * @description login user with email and password
  * @access Public
  */
-authRouter.post("/login", authController.loginUserController)
+authRouter.post("/login", validateLogin, authController.loginUserController)
 
 /**
  * @route GET /api/auth/logout

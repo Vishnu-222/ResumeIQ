@@ -7,8 +7,6 @@ const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GENAI_API_KEY
 })
 
-
-
 async function generateInterviewReport({ resume, selfDescription, jobDescription }) {
     try {
 
@@ -242,7 +240,9 @@ ${jobDescription}
 
     } catch (error) {
         console.error("Gemini Error:", error);
-        throw error;
+        const err = new Error("Failed to generate interview report.");
+        err.statusCode = 500;
+        throw err;
     }
 }
 
@@ -427,7 +427,9 @@ ${jobDescription}
 }
 catch (error) {
         console.error("Gemini Error:", error);
-        throw error;
+        const err = new Error("Failed to generate resume PDF.");
+        err.statusCode = 500;
+        throw err;
     }
 }
 

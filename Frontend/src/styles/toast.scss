@@ -1,0 +1,57 @@
+/* Toast Container */
+.Toastify__toast-container {
+    width: 360px;
+}
+
+/* Toast Card */
+.Toastify__toast {
+    background: #161b22 !important;
+    color: #e6edf3 !important;
+    border: 1px solid #2a3348;
+    border-left: 4px solid #ff2d78;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    min-height: 64px;
+    font-size: 15px;
+}
+
+/* Body */
+.Toastify__toast-body {
+    color: #e6edf3;
+    font-weight: 500;
+}
+
+/* Close Button */
+.Toastify__close-button {
+    color: #e6edf3;
+    opacity: .8;
+}
+
+.Toastify__close-button:hover {
+    opacity: 1;
+}
+
+/* Progress Bar */
+.Toastify__progress-bar {
+    background: #ff2d78 !important;
+}
+
+/* Success Icon */
+.Toastify__toast--success .Toastify__toast-icon svg {
+    fill: #ff2d78;
+}
+
+/* Error Icon */
+.Toastify__toast--error .Toastify__toast-icon svg {
+    fill: #ff2d78;
+}
+
+/* Warning Icon */
+.Toastify__toast--warning .Toastify__toast-icon svg {
+    fill: #ff2d78;
+}
+
+/* Info Icon */
+.Toastify__toast--info .Toastify__toast-icon svg {
+    fill: #ff2d78;
+}

@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../auth.context.jsx";
 import {login , register , logout , getMe} from "../services/auth.api.js"
+import { toast } from "react-toastify";
 
 export const useAuth = () => {
 
@@ -12,8 +13,11 @@ export const useAuth = () => {
         try {
             const data = await login({ email, password })
             setUser(data.user)
+            toast.success(data.message);
+            return true;
         } catch (err) {
-
+            toast.error(err.response?.data?.message || "Something went wrong.");
+            return false;
         } finally {
             setLoading(false)
         }
@@ -24,8 +28,11 @@ export const useAuth = () => {
         try {
             const data = await register({ username, email, password })
             setUser(data.user)
+            toast.success(data.message);
+            return true;
         } catch (err) {
-
+            toast.error(err.response?.data?.message || "Something went wrong.");
+            return false;
         } finally {
             setLoading(false)
         }
@@ -36,8 +43,11 @@ export const useAuth = () => {
         try {
             const data = await logout()
             setUser(null)
+            toast.success(data.message);
+            return true;
         } catch (err) {
-
+            toast.error(err.response?.data?.message || "Something went wrong.");
+            return false;
         } finally {
             setLoading(false)
         }
@@ -50,7 +60,7 @@ export const useAuth = () => {
                 const data = await getMe()
                 setUser(data.user)
             } catch (err) {
-                
+               setUser(null); 
              } finally {
                 setLoading(false)
             }
