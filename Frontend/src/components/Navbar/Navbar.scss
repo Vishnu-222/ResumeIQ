@@ -1,0 +1,138 @@
+.navbar {
+    height: 70px;
+    padding: 0 2rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: #111827;
+    border-bottom: 1px solid #2d3748;
+}
+
+.navbar__logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+}
+
+.navbar__profile {
+    display: flex;
+    align-items: center;
+}
+
+.navbar__profile-btn {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+
+    border: none;
+    background: transparent;
+    color: white;
+
+    cursor: pointer;
+
+    padding: .5rem .75rem;
+    border-radius: 12px;
+
+    transition: background .2s ease;
+}
+
+.navbar__profile-btn:hover {
+    background: rgba(255,255,255,.08);
+}
+
+.navbar__avatar {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    background: #3b82f6;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: bold;
+}
+
+.navbar__username {
+    font-weight: 500;
+}
+
+.navbar__arrow {
+    font-size: .75rem;
+    transition: transform .25s ease;
+}
+
+.navbar__arrow--open {
+    transform: rotate(180deg);
+}
+
+.navbar__profile {
+    position: relative;
+}
+
+.navbar__dropdown {
+    position: absolute;
+
+    top: 55px;
+    right: 0;
+
+    width: 220px;
+
+    background: #1f2937;
+
+    border: 1px solid #374151;
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+
+    z-index: 1000;
+}
+
+.navbar__dropdown-user {
+    display: flex;
+    flex-direction: column;
+
+    padding: 16px;
+
+    strong {
+        color: white;
+    }
+
+    span {
+        color: #9ca3af;
+        font-size: .85rem;
+    }
+}
+
+.navbar__dropdown hr {
+    border: none;
+    border-top: 1px solid #374151;
+}
+
+.navbar__logout {
+    width: 100%;
+
+    border: none;
+    background: transparent;
+
+    color: #ef4444;
+
+    padding: 14px;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    font-size: .95rem;
+}
+
+.navbar__logout:hover {
+    background: rgba(239,68,68,.08);
+}
