@@ -40,7 +40,12 @@ async function registerUserController(req, res , next) {
             { expiresIn: "1d" }
         )
 
-        res.cookie("token", token)
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 24 * 60 * 60 * 1000,
+        });
 
         return res.status(201).json({
             success: true,
@@ -94,8 +99,8 @@ async function loginUserController(req, res , next) {
         
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
-            sameSite: "lax",
+            secure: true,
+            sameSite: "none",
             maxAge: 24 * 60 * 60 * 1000,
         });
         
