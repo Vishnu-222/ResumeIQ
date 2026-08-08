@@ -3,6 +3,7 @@
 > **ResumeIQ** is an AI-powered interview preparation platform that analyzes your resume against a target job description to generate personalized interview insights, technical and behavioral questions, skill gap analysis, a preparation roadmap, and an AI-generated resume.
 
 ---
+**Live Demo:** https://resume-iq-wheat-phi.vercel.app/
 
 ## Introduction
 
