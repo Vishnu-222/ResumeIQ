@@ -452,3 +452,205 @@ $severity-low:    #3fb950;
         border-color: rgba($severity-low, 0.25);
     }
 }
+
+// ── Responsive report layout ─────────────────────────────────────────────────
+// Keep the original three-column desktop view; stack its existing sections on
+// smaller screens so no report content or actions are removed.
+@media (max-width: 1100px) {
+    .interview-page {
+        padding: 1rem;
+    }
+
+    .interview-layout {
+        flex-direction: column;
+        min-height: calc(100vh - 2rem);
+        min-height: calc(100svh - 2rem);
+        overflow: visible;
+    }
+
+    .interview-divider {
+        display: none;
+    }
+
+    .interview-nav {
+        width: 100%;
+        padding: 1rem 1.25rem;
+        gap: 0.75rem;
+        border-bottom: 1px solid $border-color;
+    }
+
+    .nav-content {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .interview-nav__label {
+        width: 100%;
+        padding: 0 0.25rem;
+        margin-bottom: 0.1rem;
+    }
+
+    .interview-nav__item {
+        flex: 1 1 150px;
+        width: auto;
+        min-width: 0;
+    }
+
+    .interview-nav > .button {
+        align-self: flex-start;
+        max-width: 100%;
+    }
+
+    .interview-content {
+        min-width: 0;
+        width: 100%;
+        overflow: visible;
+        padding: 1.5rem;
+    }
+
+    .interview-content section {
+        height: auto;
+    }
+
+    .interview-sidebar {
+        width: 100%;
+        flex-direction: row;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        padding: 1.25rem 1.5rem 1.5rem;
+        border-top: 1px solid $border-color;
+    }
+
+    .sidebar-divider {
+        display: none;
+    }
+
+    .match-score {
+        flex: 0 0 150px;
+    }
+
+    .skill-gaps {
+        flex: 1 1 220px;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .interview-page {
+        padding: 0.5rem;
+    }
+
+    .interview-layout {
+        min-height: calc(100vh - 1rem);
+        min-height: calc(100svh - 1rem);
+        border-radius: 0.75rem;
+    }
+
+    .interview-nav {
+        padding: 0.9rem;
+    }
+
+    .interview-nav__item {
+        flex: 1 1 140px;
+        padding: 0.7rem 0.75rem;
+    }
+
+    .interview-nav > .button {
+        width: 100%;
+        align-self: stretch;
+        justify-content: center;
+    }
+
+    .interview-content {
+        padding: 1rem 0.85rem;
+    }
+
+    .content-header {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .content-header h2 {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    .content-header__count {
+        font-size: 0.75rem;
+    }
+
+    .q-card__header {
+        gap: 0.55rem;
+        padding: 0.8rem 0.7rem;
+    }
+
+    .q-card__question {
+        min-width: 0;
+        overflow-wrap: anywhere;
+        font-size: 0.86rem;
+    }
+
+    .q-card__body {
+        padding: 0.75rem 0.75rem 0.85rem;
+    }
+
+    .q-card__section p,
+    .roadmap-day__tasks li {
+        overflow-wrap: anywhere;
+    }
+
+    .roadmap-list::before {
+        left: 17px;
+    }
+
+    .roadmap-day {
+        padding-left: 2.6rem;
+    }
+
+    .roadmap-day::before {
+        left: 10px;
+    }
+
+    .roadmap-day__header {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .roadmap-day__focus {
+        min-width: 0;
+        overflow-wrap: anywhere;
+        font-size: 0.9rem;
+    }
+
+    .interview-sidebar {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .match-score {
+        flex: none;
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .match-score__sub {
+        text-align: left;
+    }
+
+    .skill-gaps {
+        width: 100%;
+    }
+
+    .skill-tag {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+}

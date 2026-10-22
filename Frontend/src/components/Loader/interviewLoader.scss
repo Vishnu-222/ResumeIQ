@@ -11,7 +11,10 @@ $accent-alt: #ff6b9d;
 .interview-loader-container {
 
     width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
     min-height: 100vh;
+    min-height: 100svh;
 
     display: flex;
     justify-content: center;
@@ -20,12 +23,13 @@ $accent-alt: #ff6b9d;
     background: $bg-page;
 }
 
-.loader-card {
+.interview-loader-container .loader-card {
 
-    width: 520px;
-    max-width: 90%;
+    width: min(520px, 100%);
+    max-width: 100%;
+    box-sizing: border-box;
 
-    padding: 3rem;
+    padding: clamp(1.25rem, 5vw, 3rem);
 
     border-radius: 18px;
 
@@ -40,7 +44,7 @@ $accent-alt: #ff6b9d;
     text-align: center;
 }
 
-.spinner {
+.interview-loader-container .spinner {
 
     width: 72px;
     height: 72px;
@@ -62,13 +66,13 @@ $accent-alt: #ff6b9d;
         0 0 35px rgba(255,45,120,.15);
 }
 
-.loader-card h1{
+.interview-loader-container .loader-card h1{
 
     font-size:2rem;
     margin-bottom:.4rem;
 }
 
-.loader-card h2{
+.interview-loader-container .loader-card h2{
 
     font-size:1.2rem;
     font-weight:500;
@@ -78,7 +82,7 @@ $accent-alt: #ff6b9d;
     margin-bottom:2rem;
 }
 
-.current-step{
+.interview-loader-container .current-step{
 
     color:$accent;
 
@@ -91,7 +95,7 @@ $accent-alt: #ff6b9d;
     transition:.3s;
 }
 
-.waiting-text{
+.interview-loader-container .waiting-text{
 
     margin-top:2rem;
 
@@ -108,4 +112,31 @@ $accent-alt: #ff6b9d;
 
     }
 
+}
+
+@media (max-width: 420px) {
+    .interview-loader-container .spinner {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1.5rem;
+    }
+
+    .interview-loader-container .loader-card h1 {
+        font-size: 1.65rem;
+    }
+
+    .interview-loader-container .loader-card h2 {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .interview-loader-container .current-step {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .interview-loader-container .waiting-text {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
 }

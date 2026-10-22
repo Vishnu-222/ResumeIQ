@@ -136,3 +136,48 @@
 .navbar__logout:hover {
     background: rgba(239,68,68,.08);
 }
+
+@media (max-width: 480px) {
+    .navbar {
+        height: 64px;
+        padding: 0 1rem;
+    }
+
+    .navbar__logo {
+        font-size: 1.3rem;
+    }
+
+    .navbar__profile-btn {
+        gap: 0.5rem;
+        padding: 0.4rem;
+    }
+
+    .navbar__username {
+        display: block;
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 0.875rem;
+    }
+
+    .navbar__avatar {
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+    }
+
+    .navbar__dropdown {
+        width: min(220px, calc(100vw - 2rem));
+    }
+}
+
+@media (max-width: 360px) {
+    .navbar {
+        padding: 0 0.75rem;
+    }
+
+    .navbar__username {
+        max-width: 72px;
+    }
+}
