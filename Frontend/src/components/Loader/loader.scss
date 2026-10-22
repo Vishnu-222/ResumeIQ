@@ -6,7 +6,10 @@ $accent-alt: #ff6b9d;
 
 .loader-container {
     width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
     min-height: 100vh;
+    min-height: 100svh;
 
     display: flex;
     justify-content: center;
@@ -22,7 +25,7 @@ $accent-alt: #ff6b9d;
     gap: 1rem;
 }
 
-.spinner {
+.loader-container .spinner {
     width: 64px;
     height: 64px;
 
@@ -47,5 +50,16 @@ $accent-alt: #ff6b9d;
 @keyframes spin {
     to {
         transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 420px) {
+    .loader-container .spinner {
+        width: 56px;
+        height: 56px;
+    }
+
+    .loader p {
+        font-size: 0.875rem;
     }
 }
